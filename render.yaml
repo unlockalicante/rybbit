@@ -2,8 +2,6 @@ services:
   - type: web
     name: rybbit
     env: docker
+    dockerComposePath: ./docker-compose.yml
     plan: free
     autoDeploy: true
-    buildCommand: ""
-    startCommand: ""
-    dockerfilePath: ./Dockerfile
