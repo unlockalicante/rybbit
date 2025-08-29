@@ -4,7 +4,7 @@ services:
     env: docker
     plan: free
     autoDeploy: true
-    dockerfilePath: ./client/Dockerfile
+    dockerfilePath: ./Dockerfile
     rootDir: client
     healthCheckPath: /
 
@@ -13,6 +13,6 @@ services:
     env: docker
     plan: free
     autoDeploy: true
-    dockerfilePath: ./server/Dockerfile
+    dockerfilePath: ./Dockerfile
     rootDir: server
     healthCheckPath: /api/health  # o ajusta al endpoint que tengas
