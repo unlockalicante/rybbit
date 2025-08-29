@@ -1,19 +1,22 @@
 FROM node:18
 
-# Copiar archivos a la imagen
-COPY . /app
+# Instala pnpm globalmente
+RUN npm install -g pnpm
 
-# Entrar al directorio de la app
+# Crea el directorio de trabajo
 WORKDIR /app
 
-# Instalar dependencias
-RUN npm install
+# Copia el monorepo completo
+COPY . .
 
-# Construir frontend + backend con Turbo
-RUN npx turbo run build
+# Instala las dependencias de todo el monorepo con pnpm
+RUN pnpm install
 
-# Exponer el puerto usado por Next.js
+# Construye todo con turbo
+RUN pnpm turbo run build
+
+# Expone el puerto de Next.js
 EXPOSE 3000
 
-# Ejecutar el frontend
-CMD ["npm", "--prefix", "apps/web", "start"]
+# Ejecuta la app frontend
+CMD ["pnpm", "--filter", "web", "start"]
