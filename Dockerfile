@@ -1,22 +1,23 @@
 FROM node:18
 
-# Instala pnpm globalmente
+# Instala pnpm
 RUN npm install -g pnpm
 
-# Establece la carpeta de trabajo como raíz del repo
-WORKDIR /usr/src/app
+# Establece el directorio correcto desde donde trabajar
+WORKDIR /app
 
-# Copia el contenido del repo al contenedor
-COPY . .
+# Copia el contenido del proyecto al contenedor
+COPY . /app
 
-# Instala dependencias del monorepo
+# Instala las dependencias desde la raíz del monorepo
+WORKDIR /app
 RUN pnpm install
 
-# Construye todas las apps
+# Ejecuta la build de todo el monorepo
 RUN pnpm turbo run build
 
-# Expón el puerto por defecto de Next.js
+# Expón el puerto de Next.js (frontend)
 EXPOSE 3000
 
-# Ejecuta el frontend de Rybbit desde apps/web
+# Ejecuta el frontend de Rybbit
 CMD ["pnpm", "--filter", "web", "start"]
