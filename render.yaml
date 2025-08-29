@@ -1,7 +1,18 @@
 services:
   - type: web
-    name: rybbit
+    name: rybbit-client
     env: docker
-    dockerComposePath: ./docker-compose.yml
     plan: free
     autoDeploy: true
+    dockerfilePath: ./client/Dockerfile
+    rootDir: ./client
+    healthCheckPath: /
+
+  - type: web
+    name: rybbit-server
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./server/Dockerfile
+    rootDir: ./server
+    healthCheckPath: /api/health  # Ajusta si tienes otro endpoint de health
