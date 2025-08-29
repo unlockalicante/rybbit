@@ -1,22 +1,19 @@
 FROM node:18
 
-# Establecer el directorio raíz del proyecto (sin crear /app innecesario)
-WORKDIR /app
+# Usa el directorio raíz como base
+WORKDIR /usr/src/app
 
-# Copiar los archivos del repo
+# Copia todos los archivos del proyecto
 COPY . .
 
-# Volver al raíz para instalar correctamente
-WORKDIR /app
-
-# Instalar todas las dependencias
+# Instala todas las dependencias del monorepo
 RUN npm install
 
-# Construir todo el monorepo con Turbo
+# Construye el frontend con turbo
 RUN npx turbo run build
 
-# Exponer el puerto del frontend (Next.js usa 3000 por defecto)
+# Expón el puerto por defecto (Next.js)
 EXPOSE 3000
 
-# Lanzar el frontend de Rybbit desde apps/web
+# Inicia el frontend de Rybbit
 CMD ["npm", "--prefix", "apps/web", "start"]
