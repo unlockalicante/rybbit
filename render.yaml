@@ -5,7 +5,7 @@ services:
     plan: free
     autoDeploy: true
     dockerfilePath: ./client/Dockerfile
-    rootDir: ./client
+    rootDir: client
     healthCheckPath: /
 
   - type: web
@@ -14,5 +14,5 @@ services:
     plan: free
     autoDeploy: true
     dockerfilePath: ./server/Dockerfile
-    rootDir: ./server
-    healthCheckPath: /api/health  # Ajusta si tienes otro endpoint de health
+    rootDir: server
+    healthCheckPath: /api/health  # o ajusta al endpoint que tengas
