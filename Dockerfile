@@ -1,20 +1,17 @@
-# Usa una imagen de Node LTS
 FROM node:18
 
-# Establece directorio de trabajo
 WORKDIR /app
 
-# Copia el contenido del repo al contenedor
 COPY . .
 
-# Instala dependencias
+# Instala todas las dependencias del monorepo
 RUN npm install
 
-# Construye el frontend
-RUN npm run build
+# Ejecuta el build global (Turbo)
+RUN npx turbo run build
 
-# Expone el puerto por defecto (si usas Next.js será 3000)
+# Expone el puerto 3000 para el frontend
 EXPOSE 3000
 
-# Comando de arranque
-CMD ["npm", "start"]
+# Lanza el frontend desde apps/web
+CMD ["npm", "--prefix", "apps/web", "start"]
