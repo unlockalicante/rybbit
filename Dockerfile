@@ -1,23 +1,22 @@
 FROM node:18
 
-# Instala pnpm
+# Instalar pnpm
 RUN npm install -g pnpm
 
-# Establece el directorio correcto desde donde trabajar
+# Establecer directorio de trabajo (en el que Render clona por defecto)
 WORKDIR /app
 
-# Copia el contenido del proyecto al contenedor
-COPY . /app
+# Copiar todo el contenido al contenedor (desde el contexto raíz del repo)
+COPY . .
 
-# Instala las dependencias desde la raíz del monorepo
-WORKDIR /app
+# Instalar dependencias del monorepo
 RUN pnpm install
 
-# Ejecuta la build de todo el monorepo
+# Construir todas las apps del monorepo
 RUN pnpm turbo run build
 
-# Expón el puerto de Next.js (frontend)
+# Exponer el puerto por defecto de Next.js
 EXPOSE 3000
 
-# Ejecuta el frontend de Rybbit
+# Ejecutar el frontend (ajustar si tu app principal es otra)
 CMD ["pnpm", "--filter", "web", "start"]
